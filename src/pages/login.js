@@ -9,7 +9,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
 
-  const handleSubmit = async e => {
+  const handleSubmit = e => {
     e.preventDefault();
     dispatch(userLogIn({ username, password }));
   };
@@ -21,6 +21,7 @@ const Login = () => {
             Email
             <input
               type="text"
+              required
               onChange={({ target }) => setUsername(target.value)}
             />
           </label>
@@ -30,6 +31,7 @@ const Login = () => {
             Password
             <input
               type="password"
+              required
               onChange={({ target }) => setPassword(target.value)}
             />
           </label>

@@ -1,4 +1,5 @@
 import { loginUser } from '../../services/user';
+import { localStorageUserProp } from '../../constants';
 
 export const userLogIn = userData => {
   return async dispatch => {
@@ -23,7 +24,7 @@ export const userLogOut = () => {
 
 export const initUser = () => {
   return dispatch => {
-    const userAsJSON = window.localStorage.getItem('vwTestTaskUser');
+    const userAsJSON = window.localStorage.getItem(localStorageUserProp);
     if (userAsJSON) {
       const user = JSON.parse(userAsJSON);
       dispatch({
