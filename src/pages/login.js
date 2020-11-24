@@ -1,12 +1,15 @@
 import { useState } from 'react';
-import { loginUser } from '../services/user';
+import { useDispatch, useSelector } from 'react-redux';
+import { userLogIn } from '../state/actions/user';
+
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+
   const handleSubmit = async e => {
     e.preventDefault();
-    const { data: clientData } = await loginUser({ username, password });
-    
+    dispatch(userLogIn({ username, password }));
   };
   return (
     <>
@@ -35,5 +38,3 @@ const Login = () => {
   );
 };
 export default Login;
-
-
