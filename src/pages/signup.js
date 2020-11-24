@@ -1,14 +1,19 @@
 import { useState } from 'react';
 import { registerUser } from '../services/user';
 const Signup = () => {
-  //предпочитаю не использовать редакс для стейта форм, поскольку в формах стейт часто меняется
+  //стейт форм оставляю локальным, поскольку он часто меняется
+  //для стейт форм можно было бы использовать ReduxForm, Formik, React Hook Form
+
+  //formstate
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [invitedBy, setInvitedBy] = useState('RU-637164');
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [countryCode, setCountyCode] = useState('RU');
-
+  //formstate
+  
+  //todo redirect after registration + alers on errors/success
   const handleRegistration = e => {
     e.preventDefault();
     console.log({

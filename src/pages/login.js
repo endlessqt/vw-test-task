@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { userLogIn } from '../state/actions/user';
 
 const Login = () => {
+  //стейт форм оставляю локальным, поскольку он часто меняется
+  //для стейт форм можно было бы использовать ReduxForm, Formik, React Hook Form
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
