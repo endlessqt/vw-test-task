@@ -44,7 +44,11 @@ export const initUserData = clientId => {
         userData,
       });
     } catch (error) {
-      console.log(error);
+      if (
+        error.config.url === 'http://erp.apptrix.ru/api/clients/token/refresh/'
+      ) {
+        dispatch(userLogOut());
+      }
     }
   };
 };
