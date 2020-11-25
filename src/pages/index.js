@@ -9,7 +9,7 @@ const Index = () => {
     dispatch(initUserData(user.client_id));
   }, []);
   const { userData } = user;
-  console.log(userData);
+
   if (userData) {
     return (
       <div>

@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { localStorageUserProp } from '../constants';
 const baseURL = 'http://erp.apptrix.ru/api/clients';
-//user: ghtwaychack95@yandex.ru
-//password: testingtest
 
 axios.interceptors.request.use(
   config => {
@@ -31,9 +29,9 @@ axios.interceptors.response.use(
       return Promise.reject(error);
     }
     if (
-      error.response.data.messages[0].token_class === 'AccessToken' &&
       errMsgCode === 'token_not_valid' &&
-      errStatus === 401
+      errStatus === 401 &&
+      error.response.data.messages[0].token_class === 'AccessToken'
     ) {
       const user = JSON.parse(localStorage.getItem(localStorageUserProp));
       const refreshToken = user.refresh;
@@ -57,13 +55,11 @@ axios.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-// export const registerUser = async fullUserData => {
-//   const res = await axios.post(
-//     'http://erp.apptrix.ru/api/clients/create/',
-//     fullUserData
-//   );
-//   return res.data;
-// };
+
+export const registerUser = async fullUserData => {
+  const res = await axios.post(`${baseURL}/create/`, fullUserData);
+  return res;
+};
 
 export const loginUser = async userData => {
   const { data } = await axios.post(`${baseURL}/token/`, userData);
