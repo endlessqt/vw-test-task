@@ -1,4 +1,4 @@
-import { loginUser } from '../../services/user';
+import { loginUser, getUserData } from '../../services/user';
 import { localStorageUserProp } from '../../constants';
 
 export const userLogIn = userData => {
@@ -31,6 +31,20 @@ export const initUser = () => {
         type: 'INIT_USER',
         user,
       });
+    }
+  };
+};
+
+export const initUserData = clientId => {
+  return async dispatch => {
+    try {
+      const userData = await getUserData(clientId);
+      dispatch({
+        type: 'INIT_USER_DATA',
+        userData,
+      });
+    } catch (error) {
+      console.log(error);
     }
   };
 };

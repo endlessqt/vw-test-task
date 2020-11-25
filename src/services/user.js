@@ -72,6 +72,5 @@ export const loginUser = async userData => {
 
 export const getUserData = async clientId => {
   const { data } = await axios.get(`${baseURL}/${clientId}`);
-  console.log(data);
   return data;
 };

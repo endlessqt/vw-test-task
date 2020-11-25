@@ -20,6 +20,13 @@ const reducer = (state = null, action) => {
         ...user,
       };
     }
+    case 'INIT_USER_DATA': {
+      const userData = action.userData;
+      return {
+        ...state,
+        userData,
+      };
+    }
     default:
       return state;
   }
