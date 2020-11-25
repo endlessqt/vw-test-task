@@ -69,7 +69,7 @@ const Signup = () => {
             Email
             <input
               type="email"
-              // required
+              required
               onChange={({ target }) => setEmail(target.value)}
             />
           </label>
@@ -79,7 +79,7 @@ const Signup = () => {
             Password
             <input
               type="password"
-              // required
+              required
               onChange={({ target }) => setPassword(target.value)}
             />
           </label>
@@ -95,7 +95,7 @@ const Signup = () => {
             Name
             <input
               type="text"
-              // required
+              required
               onChange={({ target }) => setName(target.value)}
             />
           </label>
@@ -105,7 +105,7 @@ const Signup = () => {
             Surname
             <input
               type="text"
-              // required
+              required
               onChange={({ target }) => setSurname(target.value)}
             />
           </label>
