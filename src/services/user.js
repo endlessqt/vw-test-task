@@ -1,17 +1,9 @@
 import axios from 'axios';
 import { localStorageUserProp } from '../constants';
-
+const baseURL = 'http://erp.apptrix.ru/api/clients';
 //user: ghtwaychack95@yandex.ru
 //password: testingtest
 
-// export const registerUser = async fullUserData => {
-//   const res = await axios.post(
-//     'http://erp.apptrix.ru/api/clients/create/',
-//     fullUserData
-//   );
-//   return res.data;
-// };
-let firstTime = 'ok';
 axios.interceptors.request.use(
   config => {
     const userAsJSON = localStorage.getItem(localStorageUserProp);
@@ -34,10 +26,7 @@ axios.interceptors.response.use(
     const errMsgCode = error.response.data.code;
     const errStatus = error.response.status;
     const errConfig = error.config;
-    if (
-      errStatus === 401 &&
-      errConfig.url === 'http://erp.apptrix.ru/api/clients/token/refresh/'
-    ) {
+    if (errStatus === 401 && errConfig.url === `${baseURL}/token/refresh/`) {
       //here's logic when refresh is not working
       return Promise.reject(error);
     }
@@ -49,12 +38,9 @@ axios.interceptors.response.use(
       const user = JSON.parse(localStorage.getItem(localStorageUserProp));
       const refreshToken = user.refresh;
       if (refreshToken) {
-        const { data } = await axios.post(
-          'http://erp.apptrix.ru/api/clients/token/refresh/',
-          {
-            refresh: `${refreshToken}`,
-          }
-        );
+        const { data } = await axios.post(`${baseURL}/token/refresh/`, {
+          refresh: `${refreshToken}`,
+        });
         const newAccessToken = data.access;
         const newUser = { ...user, access: newAccessToken };
         window.localStorage.setItem(
@@ -67,24 +53,25 @@ axios.interceptors.response.use(
 
         return axios(errConfig);
       }
-      return Promise.reject(error);
     }
     return Promise.reject(error);
   }
 );
+// export const registerUser = async fullUserData => {
+//   const res = await axios.post(
+//     'http://erp.apptrix.ru/api/clients/create/',
+//     fullUserData
+//   );
+//   return res.data;
+// };
 
 export const loginUser = async userData => {
-  const { data } = await axios.post(
-    'http://erp.apptrix.ru/api/clients/token/',
-    userData
-  );
+  const { data } = await axios.post(`${baseURL}/token/`, userData);
   return data;
 };
 
 export const getUserData = async clientId => {
-  const { data } = await axios.get(
-    `http://erp.apptrix.ru/api/clients/${clientId}`
-  );
-
+  const { data } = await axios.get(`${baseURL}/${clientId}`);
+  console.log(data);
   return data;
 };

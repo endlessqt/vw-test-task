@@ -5,6 +5,7 @@ import { userLogOut, initUser } from './state/actions/user';
 import Index from './pages/index';
 import Login from './pages/login';
 import Signup from './pages/signup';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   const dispatch = useDispatch();
@@ -24,13 +25,16 @@ function App() {
               <li>
                 <Link to="/">Index</Link>
               </li>
-            ) : null}
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-            <li>
-              <Link to="/signup">SignUp</Link>
-            </li>
+            ) : (
+              <>
+                <li>
+                  <Link to="/login">Login</Link>
+                </li>
+                <li>
+                  <Link to="/signup">SignUp</Link>
+                </li>
+              </>
+            )}
           </ul>
         </nav>
         {user ? (
@@ -45,9 +49,7 @@ function App() {
       <Switch>
         <Route path="/signup">{user ? <Redirect to="/" /> : <Signup />}</Route>
         <Route path="/login">{user ? <Redirect to="/" /> : <Login />}</Route>
-        <Route>
-          <Index path="/" />
-        </Route>
+        <PrivateRoute path="/" component={Index} />
       </Switch>
     </div>
   );
